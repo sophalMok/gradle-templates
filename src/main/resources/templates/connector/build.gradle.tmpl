@@ -1,0 +1,192 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'connector'
+
+group=${group}
+
+apply from: file('gradle/version.gradle')
+
+def timestamp = System.currentTimeMillis()
+
+buildscript {
+    repositories {
+        maven { url nexusSnapshotUrl }
+        maven { url nexusReleaseUrl }
+    }
+    dependencies {
+        classpath 'com.domo.gradle:connector-gradle-plugin:0.1-SNAPSHOT'
+    }
+}
+
+repositories {
+    maven { url nexusPublicUrl }
+    maven { url nexusReleaseUrl }
+    maven { url nexusSnapshotUrl }
+}
+
+configurations {
+    cliclient
+}
+
+dependencies {
+
+    cliclient 'com.domo.connector:connector-cli-client:1.3'
+    cliclient 'com.domo.dap:connector-service-client:1.7'
+    cliclient 'commons-cli:commons-cli:1.2'
+    cliclient 'com.domo.dap:connector-service-http-client:0.1.34'
+
+    // compile dependencies
+    compile 'com.domo.connector:connector-general:+'
+    compile 'com.domo.dap:connector-api:+'
+    compile 'com.domo.dap:connector-util:0.9.13'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.h2database:h2:1.3.172'
+    compile 'com.jcraft:jsch:0.1.51'
+    compile 'com.newrelic.agent.java:newrelic-api:3.5.1'
+    compile 'com.thoughtworks.xstream:xstream:1.4.7'
+    compile 'commons-codec:commons-codec:1.9'
+    compile 'commons-io:commons-io:2.4'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'joda-time:joda-time:2.2'
+    compile 'jaxen:jaxen:1.1'
+    compile 'net.sf.opencsv:opencsv:2.3'
+    compile 'org.apache.commons:commons-lang3:3.1'
+    compile 'org.apache.poi:poi:3.8'
+    compile 'org.apache.poi:poi-ooxml:3.8'
+    compile 'org.apache.poi:poi-ooxml-schemas:3.8'
+    compile 'org.apache.xmlbeans:xmlbeans:2.3.0'
+    compile 'org.hamcrest:hamcrest-core:1.3.RC2'
+    compile 'org.json:json:20140107'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+
+    // test dependencies
+    testCompile 'junit:junit:4.12'
+
+}
+
+idea {
+    project {
+        jdkName = '1.7'
+        languageLevel = '1.7'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task validationJar(type: Jar, dependsOn: classes) {
+    classifier = 'validation'
+    from sourceSets.main.output
+}
+
+task bundle(type: Zip, dependsOn: [jar, sourcesJar, javadocJar, validationJar]) {
+    classifier 'bundle'
+    from libsDir
+    from sourceSets.main.output.resourcesDir
+}
+
+jar {
+    manifest {
+        attributes(
+            "Created-By" : org.gradle.internal.jvm.Jvm.current(),
+            "Bundle-Name" : name,
+            "Bundle-Version" : version,
+            "Bundle-ClassPath" : configurations.compile.collect {it.getName()}.toString().replaceAll(",|\\\\[|\\\\]", ""),
+            "ClassPath" : configurations.compile.collect {it.getName()}.toString().replaceAll(",|\\\\[|\\\\]", ""),
+        )
+
+    }
+    from configurations.compile
+}
+
+validationJar {
+
+    def bundleName = archivesBaseName + '-validation' + '-' + timestamp;
+
+    manifest {
+        attributes(
+                "Created-By" : org.gradle.internal.jvm.Jvm.current(),
+                "Bundle-Name" : bundleName,
+                "Bundle-Version" : version,
+                "Bundle-SymbolicName" : bundleName,
+                "Bundle-ClassPath" : configurations.compile.collect {it.getName()}.toString().replaceAll(",|\\\\[|\\\\]", ""),
+                "ClassPath" : configurations.compile.collect {it.getName()}.toString().replaceAll(",|\\\\[|\\\\]", ""),
+                "Import-Package" : "org.osgi.framework,javax.sql,javax.naming,javax.net.ssl,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers",
+        )
+
+    }
+    from configurations.compile
+}
+
+artifacts {
+    archives jar, sourcesJar, javadocJar, validationJar, bundle
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar {
+                classifier 'sources'
+            }
+
+            artifact javadocJar {
+                classifier 'javadoc'
+            }
+
+            artifact validationJar {
+                classifier 'validation'
+            }
+
+            artifact bundle {
+                classifier 'bundle'
+            }
+
+            pom.withXml {
+                asNode().get('dependencies').get(0).get('dependency').each() { dep ->
+                    String pomVer = dep.get("version").text();
+                    String pomArtifactId = dep.get("artifactId").text();
+                    String pomGroupId = dep.get("groupId").text();
+                    if (pomVer.isEmpty()) {
+                        def depVer = project.dependencyManagement.dependencyManagementContainer.globalDependencyManagement.versions["\$pomGroupId:\$pomArtifactId"]
+                        dep.appendNode('version', depVer)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username nexusUsername
+                password nexusPassword
+            }
+            url nexusReleaseUrl
+        }
+    }
+}
+
+task connectorVersion << {
+    println version
+}
+
+processResources {
+    doFirst {
+        filter {
+            line -> line.replaceAll("(\\s*\"minor\"\\s*:\\s*)\\d", '\$1' + version.minor())
+        }
+    }
+}

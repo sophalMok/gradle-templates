@@ -28,6 +28,10 @@ class TemplatesPluginTest {
 
         assert project.tasks.exportAllTemplates
 
+        assert project.tasks.createConnector
+        assert project.tasks.convertConnector
+        assert project.tasks.promoteConnector
+
         assert project.tasks.createGradlePlugin
         assert project.tasks.exportPluginTemplates
         assert project.tasks.initGradlePlugin

@@ -17,6 +17,7 @@
 package templates
 
 import org.gradle.api.GradleException
+import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -83,10 +84,17 @@ class TemplatesPlugin implements Plugin<Project> {
 		return System.in.newReader().readLine() ?: String.valueOf(defaultValue)
 	}
 
+	static void requireNonNull(Object obj, String message) {
+		if (obj == null || "null".equals(obj)) {
+			throw new InvalidUserDataException(message)
+		}
+	}
+
 	def void apply(Project project) {
 		project.convention.plugins.templatePlugin = new TemplatesPluginConvention()
 
         // FIXME: would be better to allow user to configure the desired template set rather than get them all
+		project.apply(plugin: ConnectorTemplatesPlugin)
 		project.apply(plugin: GroovyTemplatesPlugin)
 		project.apply(plugin: GradlePluginTemplatesPlugin)
 		project.apply(plugin: JavaTemplatesPlugin)

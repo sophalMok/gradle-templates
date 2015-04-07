@@ -10,3 +10,11 @@ dependencies {
 
     testCompile 'junit:junit:4.11'
 }
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}

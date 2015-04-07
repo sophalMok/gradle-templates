@@ -1,0 +1,126 @@
+{
+  "id": "${id}",
+  "version": {
+    "major": ${major},
+    "minor": ${minor},
+    "experimental": false
+  },
+  "sdkVersion": 2,
+  "label": "${label}",
+  "description": "${description}",
+  "factory": "com.domo.connector.general.GeneralDataStreamFactory",
+  "connectorMetadata": [
+    {
+      "name": "report",
+      "type": "string",
+      "defaults": {},
+      "constraints": {},
+      "required": true
+    }
+  ],
+  "view": {
+    "configWizard": {
+      "heading": "Skeleton",
+      "steps": [
+        {
+          "id": "0",
+          "label": "Credentials",
+          "sections": [
+            {
+              "name": "accountId",
+              "type": "account",
+              "required": true
+            }
+          ]
+        },
+        {
+          "id": "1",
+          "label": "Details",
+          "sections": [
+            {
+              "name": "report",
+              "type": "dropdown",
+              "text": "Report",
+              "required": true,
+              "defaultValue": "accounts",
+              "data": {
+                "options": [
+                  {
+                    "label": "Accounts",
+                    "value": "accounts"
+                  },
+                  {
+                    "label": "Deals",
+                    "value": "deals"
+                  },
+                  {
+                    "label": "Contacts",
+                    "value": "contacts"
+                  },
+                  {
+                    "label": "Sources",
+                    "value": "sources"
+                  },
+                  {
+                    "label": "Leads",
+                    "value": "leads"
+                  }
+                ]
+              },
+              "tooltipText": "The Skeleton report to run."
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "label": "Scheduling",
+          "sections": [
+            {
+              "name": "schedule",
+              "type": "schedule",
+              "text": "Schedule",
+              "required": true,
+              "tooltipText": "The schedule for updating this Data Source."
+            },
+            {
+              "name": "retry",
+              "type": "retry",
+              "required": false
+            },
+            {
+              "name": "updatemode",
+              "type": "updatemode",
+              "text": "~section.updateMethod.text",
+              "required": true,
+              "defaultValue": "Replace",
+              "data": {
+                "options": [
+                  "Replace",
+                  "Append"
+                ]
+              },
+              "tooltipText": "~section.updateMethod.tooltip"
+            }
+          ]
+        }
+      ],
+      "strings": {
+        "en": {
+          "section.updateMethod.tooltip": "<b>Replace</b><br>The current version of the data will be replaced with a new version of the data. All previous versions will be preserved.<br><br><b>Append</b><br>The current version of the data will be appended to previous versions of the data to make an increasingly larger data set.",
+          "section.updateMethod.text": "Update Method"
+        }
+      }
+    }
+  },
+  "connectionType": "skeleton",
+  "resourceUsageProperties": {
+    "container": {
+      "type": "c.medium"
+    }
+  },
+  "durationProperties": {
+    "dataSchemaReadTimeout": "rt.short",
+    "dataSliceReadTimeout": "rt.short",
+    "dataConsumptionTimeout": "dc.medium"
+  }
+}

@@ -1,0 +1,47 @@
+import groovy.json.JsonSlurper
+
+class Version {
+    int major, minor
+    String toString() {
+        "\$major.\$minor"
+    }
+    String major() {
+        "\$major"
+    }
+    String minor() {
+        "\$minor"
+    }
+}
+
+class ConnectorVersion {
+    String path
+    int major, minor
+    ConnectorVersion(String path) {
+        this.path = path
+        def connectorJsonFile = new File(path);
+        def json = new JsonSlurper().parse(connectorJsonFile);
+        major = json.version.major
+        minor = json.version.minor
+    }
+    int major() {
+        major
+    }
+    int minor() {
+        minor
+    }
+    String minorAsString() {
+        "\$minor"
+    }
+    String toString() {
+        "\$major.\$minor"
+    }
+}
+
+
+ext {
+    connectorVersion = new ConnectorVersion("\$projectDir/src/main/resources/conf/connector.json")
+}
+
+// minor version number can be overridden by an environment property BUILD_NUMBER. it is assumed the CI server environment will
+// set it.
+version = new Version(major: ext.connectorVersion.major(), minor: Integer.valueOf(System.getProperty("BUILD_NUMBER", ext.connectorVersion.minorAsString())))
