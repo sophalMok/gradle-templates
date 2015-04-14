@@ -57,12 +57,15 @@ gradle createDomoConnector --refresh-dependencies
 ```
 Step 2. Create the gradle wrapper, for the project.
 ```shell
-cd DataWriter<project_name>
+cd DataWriter`<project_name`>
 gradle wrapper
 ```
 Step 3. Add the project to github.
+First, using a browser:
+```shell
 Login to https://git.empdev.domo.com/Connectors.
 Add a new repository named: DataWriter<project_name>
+```
 Then, from the command line:
 ```shell
 cd DataWriter<project_name>
