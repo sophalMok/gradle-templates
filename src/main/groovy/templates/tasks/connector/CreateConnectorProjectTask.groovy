@@ -17,7 +17,7 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
     CreateConnectorProjectTask() {
         super(
                 ConnectorTemplatesPlugin.CREATE_CONNECTOR_TASK_NAME,
-                'Creates a new Connector project in a new directory named after your project.'
+                ConnectorTemplatesPlugin.CREATE_CONNECTOR_TASK_DESCRIPTION
         )
     }
 

@@ -12,7 +12,7 @@ class PromoteConnectorProjectTask extends AbstractConnectorProjectTask {
     PromoteConnectorProjectTask() {
         super(
                 ConnectorTemplatesPlugin.PROMOTE_CONNECTOR_TASK_NAME,
-                'Promotes a Connector to a target environment.'
+                ConnectorTemplatesPlugin.PROMOTE_CONNECTOR_TASK_DESCRIPTION
         )
     }
 

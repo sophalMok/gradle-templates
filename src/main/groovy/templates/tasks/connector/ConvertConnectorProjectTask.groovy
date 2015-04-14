@@ -11,7 +11,7 @@ class ConvertConnectorProjectTask extends AbstractConnectorProjectTask {
     ConvertConnectorProjectTask() {
         super(
                 ConnectorTemplatesPlugin.CONVERT_CONNECTOR_TASK_NAME,
-                'Converts an Ant Connector Project to a Gradle Connector Project.'
+                ConnectorTemplatesPlugin.CONVERT_CONNECTOR_TASK_DESCRIPTION
         )
     }
 
