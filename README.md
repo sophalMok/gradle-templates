@@ -5,7 +5,9 @@
 The Domo Connector plugin helps you get started using Gradle by providing convenient tasks for creating new Domo Connector projects that work with the Gradle build system.
 Eg. To create a new Domo Connector project you can run:
 
-```gradle createDomoConnector```
+```shell
+gradle createDomoConnector
+```
 
 Which will prompt you for the name of your new project and then create a new directory with it. It will also create a standard directory structure in your
 project's directory that works with Gradle's default configurations.
@@ -44,14 +46,7 @@ allprojects {
 Step 3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
 ```shell
 gradle tasks
-
-Template tasks
-`--------------
-convertDomoConnector - Converts a Domo Connector ANT project to a Domo Connector GRADLE Project.
-createDomoConnector - Creates a new Domo Connector project in a new directory named after your project.
-promoteDomoConnector - Promotes a Domo Connector to a target environment.
 ```
-
 
 ## Usage
 
