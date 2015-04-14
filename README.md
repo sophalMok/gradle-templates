@@ -20,11 +20,11 @@ and add the entry into your webapp's web.xml file.
 
 The recommended way to install this plugin, is to use a gradle init script. To install, follow these steps:
 
-1. Create the gradle init script.
+Step 1. Create the gradle init script.
 ```shell
 touch ~/.gradle/init.d/domo-connector.gradle
 ```
-2. Copy the following contents into the gradle init script created in Step 1.
+Step 2. Copy the following contents into the gradle init script created in Step 1.
 ```groovy
 initscript {
     dependencies {
@@ -40,7 +40,7 @@ allprojects {
     apply plugin: templates.TemplatesPlugin
 }
 ```
-3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
+Step 3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
 ```shell
 gradle tasks
 ```
@@ -51,16 +51,16 @@ Run the `gradle tasks` command to see a list of "create", "convert", and "promot
 
 ### Create a Domo Connector
 
-1. Create the Domo Connector project.
+Step 1. Create the Domo Connector project.
 ```shell
 gradle createDomoConnector
 ```
-2. Create the gradle wrapper, for the project.
+Step 2. Create the gradle wrapper, for the project.
 ```shell
 cd <domo_connector_project>
 gradle wrapper
 ```
-3. Add the project to github.
+Step 3. Add the project to github.
 ```shell
 git init
 git add .
