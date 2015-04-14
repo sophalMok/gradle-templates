@@ -61,6 +61,7 @@ cd DataWriter<project_name>
 gradle wrapper
 ```
 Step 3. Add the project to github.  
+  
 First, using a browser  
 Login to https://git.empdev.domo.com/Connectors.  
 Add a new repository named: DataWriter\<project_name\>  
