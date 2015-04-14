@@ -1,11 +1,11 @@
-# Gradle Templates Plugin
+# Domo Connector Plugin
 
 ## Introduction
 
-The Gradle Templates plugin helps you get started using Gradle by providing convenient tasks for creating new projects that work with the Gradle build system.
-Eg. To create a new Java project you can run:
+The Domo Connector plugin helps you get started using Gradle by providing convenient tasks for creating new Domo Connector projects that work with the Gradle build system.
+Eg. To create a new Domo Connector project you can run:
 
-```gradle createJavaProject```
+```gradle createDomoConnector```
 
 Which will prompt you for the name of your new project and then create a new directory with it. It will also create a standard directory structure in your
 project's directory that works with Gradle's default configurations.
@@ -16,46 +16,38 @@ and add the entry into your webapp's web.xml file.
 
 ## Installation
 
-The standard way to install this plugin is by adding the following to your build.gradle file:
+The recommended way to install this plugin, is to use a gradle init script. To install, follow these steps:
 
+Step 1. Create the gradle init script.
 ```groovy
-buildscript {
+touch ~/.gradle/init.d/domo-connector.gradle
+```
+
+Step 2. Copy the following contents into the gradle init script created in Step 1.
+```groovy
+initscript {
+    dependencies {
+        classpath 'gradle-templates:gradle-templates:1.5-SNAPSHOT'
+    }
     repositories {
         maven {
-			url 'http://dl.bintray.com/cjstehno/public'
-		}
-    }
-    dependencies {
-        classpath 'gradle-templates:gradle-templates:1.5'
+            url 'http://svn.domo.com:8081/nexus/content/repositories/snapshots/'
+        }
     }
 }
 
-apply plugin:'templates'
+allprojects {
+    apply plugin: templates.TemplatesPlugin
+}
 ```
 
-Other methods of installation are documented on the project [installation](https://github.com/townsfolk/gradle-templates/wiki/Installation) page.
+Step 3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
+```
+gradle tasks
+```
 
 ## Usage
 
-Run the `gradle tasks` command to see a list of "create", "init", and "export" tasks provided by the default plugin templates.
+Run the `gradle tasks` command to see a list of "create", "convert", and "promote" tasks provided by the default plugin templates.
 
-Running a create or init task will prompt the user for information and then generate the appropriate content.
-
-The main difference between the `create*Project` and `init*Project` tasks is that the create tasks end up creating a new directory
-for your new project, and the init tasks will create the default directory structure under the current directory.
-
-The `export*` tasks cause the templates to be exported to the local project.
-
-Other usage documentation can be found on the project [Usage](https://github.com/townsfolk/gradle-templates/wiki/Usage) page.
-
-## Details
-
-* Version: 1.5
-* Project Site: [http://cjstehno.github.io/gradle-templates](http://cjstehno.github.io/gradle-templates)
-* Project Repo: [https://github.com/townsfolk/gradle-templates](https://github.com/townsfolk/gradle-templates)
-* Wiki/Documentation: [https://github.com/townsfolk/gradle-templates/wiki](https://github.com/townsfolk/gradle-templates/wiki)
-* License: [Apache 2](http://www.apache.org/licenses/LICENSE-2.0.html)
-* Questions, bugs, issues: [https://github.com/townsfolk/gradle-templates/issues](https://github.com/townsfolk/gradle-templates/issues)
-
-[![Build Status](https://drone.io/github.com/cjstehno/gradle-templates/status.png)](https://drone.io/github.com/cjstehno/gradle-templates/latest)
-
+Running a create task will prompt the user for information and then generate the appropriate content.
