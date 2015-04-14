@@ -33,6 +33,7 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/java"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources"
         assertFileExists folder.root, "${dataWriterProjectName}/LICENSE.txt"
+        assertFileExists folder.root, "${dataWriterProjectName}/.gitignore"
 
         assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "group='${projectGroup}'"
 

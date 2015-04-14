@@ -40,7 +40,7 @@ allprojects {
     apply plugin: templates.TemplatesPlugin
 }
 ```
-Step 3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
+Step 3. Verify installation by running the `gradle tasks --refresh-dependencies` command and ensuring "*DomoConnector" tasks are present.
 ```shell
 gradle tasks
 ```
@@ -51,13 +51,13 @@ Run the `gradle tasks` command to see a list of "create", "convert", and "promot
 
 ### Create a Domo Connector
 
-Step 1. Create the Domo Connector project.
+Step 1. Create the Domo Connector project. Follow prompts.
 ```shell
-gradle createDomoConnector
+gradle createDomoConnector --refresh-dependencies
 ```
 Step 2. Create the gradle wrapper, for the project.
 ```shell
-cd <domo_connector_project>
+cd DataWriter<project_name>
 gradle wrapper
 ```
 Step 3. Add the project to github.
@@ -65,7 +65,7 @@ Step 3. Add the project to github.
 git init
 git add .
 git commit -m "Initial project check in."
-git remote add origin https://git.empdev.domo.com/Connectors/<domo_connector_project>.git
+git remote add origin https://git.empdev.domo.com/Connectors/DataWriter<project_name>.git
 git remote -v
 git push -u origin master
 ```

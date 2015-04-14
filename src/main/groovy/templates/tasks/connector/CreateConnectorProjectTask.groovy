@@ -50,6 +50,7 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
             'build.gradle' template: '/templates/connector/build.gradle.tmpl', group: projectGroup
             'settings.gradle' template: '/templates/connector/settings.gradle.tmpl', projectName: dataWriterProjectName
             'domo-connector.properties' template: '/templates/connector/domo-connector.properties.tmpl', dataStreamFactory: 'com.domo.connector.general.GeneralDataStreamFactory', recordProcessor: 'com.domo.connector.skeleton.ProcessRecords', validator: '@validator@', validatorJar: '@validatorJar@'
+            '.gitignore' template: '/templates/connector/.gitignore.tmpl'
         }
 
         ProjectTemplate.fromRoot(confPath(projectPath)) {
