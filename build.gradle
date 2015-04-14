@@ -17,4 +17,17 @@ publishing {
 			from components.java
 		}
 	}
+	repositories {
+		maven {
+			credentials {
+				username nexusUsername
+				password nexusPassword
+			}
+			if(project.version.endsWith('-SNAPSHOT')) {
+				url nexusSnapshotUrl
+			} else {
+				url nexusReleaseUrl
+			}
+		}
+	}
 }

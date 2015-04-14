@@ -13,15 +13,9 @@ import templates.tasks.connector.PromoteConnectorProjectTask
 class ConnectorTemplatesPlugin implements Plugin<Project> {
 
 	void apply(Project project) {
-		project.extensions.create("connector", ConnectorPluginExtension)
 		project.task 'createConnector', type:CreateConnectorProjectTask
         project.task 'convertConnector', type:ConvertConnectorProjectTask
         project.task 'promoteConnector', type:PromoteConnectorProjectTask
 	}
-
-}
-
-class ConnectorPluginExtension {
-	long timestamp = System.currentTimeMillis()
 
 }
