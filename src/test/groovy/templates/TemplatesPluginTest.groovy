@@ -28,9 +28,9 @@ class TemplatesPluginTest {
 
         assert project.tasks.exportAllTemplates
 
-        assert project.tasks.createConnector
-        assert project.tasks.convertConnector
-        assert project.tasks.promoteConnector
+        assert project.tasks.getByName(ConnectorTemplatesPlugin.CREATE_CONNECTOR_TASK_NAME)
+        assert project.tasks.getByName(ConnectorTemplatesPlugin.CONVERT_CONNECTOR_TASK_NAME)
+        assert project.tasks.getByName(ConnectorTemplatesPlugin.PROMOTE_CONNECTOR_TASK_NAME)
 
         assert project.tasks.createGradlePlugin
         assert project.tasks.exportPluginTemplates

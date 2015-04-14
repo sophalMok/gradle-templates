@@ -1,6 +1,7 @@
 package templates.tasks.connector
 
 import org.gradle.api.tasks.TaskAction
+import templates.ConnectorTemplatesPlugin
 
 /**
  * Task that creates a new connector project in a specified directory.
@@ -9,7 +10,7 @@ class ConvertConnectorProjectTask extends AbstractConnectorProjectTask {
 
     ConvertConnectorProjectTask() {
         super(
-                'convertConnector',
+                ConnectorTemplatesPlugin.CONVERT_CONNECTOR_TASK_NAME,
                 'Converts an Ant Connector Project to a Gradle Connector Project.'
         )
     }

@@ -12,10 +12,14 @@ import templates.tasks.connector.PromoteConnectorProjectTask
  */
 class ConnectorTemplatesPlugin implements Plugin<Project> {
 
+	public static final String CREATE_CONNECTOR_TASK_NAME = 'createDomoConnector'
+	public static final String CONVERT_CONNECTOR_TASK_NAME = 'convertDomoConnector'
+	public static final String PROMOTE_CONNECTOR_TASK_NAME = 'promoteDomoConnector'
+
 	void apply(Project project) {
-		project.task 'createConnector', type:CreateConnectorProjectTask
-        project.task 'convertConnector', type:ConvertConnectorProjectTask
-        project.task 'promoteConnector', type:PromoteConnectorProjectTask
+		project.task CREATE_CONNECTOR_TASK_NAME, type:CreateConnectorProjectTask
+        project.task CONVERT_CONNECTOR_TASK_NAME, type:ConvertConnectorProjectTask
+        project.task PROMOTE_CONNECTOR_TASK_NAME, type:PromoteConnectorProjectTask
 	}
 
 }

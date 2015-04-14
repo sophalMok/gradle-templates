@@ -2,6 +2,7 @@ package templates.tasks.connector
 
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.tasks.TaskAction
+import templates.ConnectorTemplatesPlugin
 import templates.ProjectTemplate
 import templates.TemplatesPlugin
 
@@ -15,7 +16,7 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
 
     CreateConnectorProjectTask() {
         super(
-                'createConnector',
+                ConnectorTemplatesPlugin.CREATE_CONNECTOR_TASK_NAME,
                 'Creates a new Connector project in a new directory named after your project.'
         )
     }

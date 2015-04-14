@@ -2,6 +2,7 @@ package templates.tasks.connector
 
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskAction
+import templates.ConnectorTemplatesPlugin
 
 /**
  * Task that promotes a connector to the specified environment.
@@ -10,7 +11,7 @@ class PromoteConnectorProjectTask extends AbstractConnectorProjectTask {
 
     PromoteConnectorProjectTask() {
         super(
-                'promoteConnector',
+                ConnectorTemplatesPlugin.PROMOTE_CONNECTOR_TASK_NAME,
                 'Promotes a Connector to a target environment.'
         )
     }

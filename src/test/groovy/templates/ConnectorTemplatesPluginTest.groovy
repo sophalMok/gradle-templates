@@ -14,8 +14,8 @@ class ConnectorTemplatesPluginTest {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'templates'
 
-        assert project.tasks.createConnector
-        assert project.tasks.convertConnector
-        assert project.tasks.promoteConnector
+        assert project.tasks.getByName(ConnectorTemplatesPlugin.CREATE_CONNECTOR_TASK_NAME)
+        assert project.tasks.getByName(ConnectorTemplatesPlugin.CONVERT_CONNECTOR_TASK_NAME)
+        assert project.tasks.getByName(ConnectorTemplatesPlugin.PROMOTE_CONNECTOR_TASK_NAME)
     }
 }
