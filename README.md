@@ -19,7 +19,7 @@ and add the entry into your webapp's web.xml file.
 The recommended way to install this plugin, is to use a gradle init script. To install, follow these steps:
 
 Step 1. Create the gradle init script.
-```groovy
+```shell
 touch ~/.gradle/init.d/domo-connector.gradle
 ```
 
@@ -42,9 +42,16 @@ allprojects {
 ```
 
 Step 3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
-```
+```shell
 gradle tasks
+
+Template tasks
+`--------------
+convertDomoConnector - Converts a Domo Connector ANT project to a Domo Connector GRADLE Project.
+createDomoConnector - Creates a new Domo Connector project in a new directory named after your project.
+promoteDomoConnector - Promotes a Domo Connector to a target environment.
 ```
+
 
 ## Usage
 
