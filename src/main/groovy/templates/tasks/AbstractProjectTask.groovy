@@ -90,7 +90,7 @@ abstract class AbstractProjectTask extends DefaultTask {
      * @return the project version
      */
     protected String projectVersion(){
-        project.properties[PROJECT_VERSION] ?: TemplatesPlugin.prompt('Version:', '0.1')
+        project.properties[PROJECT_VERSION] ?: TemplatesPlugin.prompt('Version:', '0.0')
     }
 
     /**
