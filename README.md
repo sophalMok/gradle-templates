@@ -32,7 +32,7 @@ initscript {
     }
     repositories {
         maven {
-            url 'http://svn.domo.com:8081/nexus/content/repositories/snapshots/'
+            url 'http://svn.domo.com:8081/nexus/content/repositories/snapshots'
         }
     }
 }
