@@ -4,11 +4,40 @@ group='${group}'
 
 buildscript {
     repositories {
-        maven { url nexusSnapshotUrl }
-        maven { url nexusReleaseUrl }
+        maven { url domoRepoSnapshotUrl }
+        maven { url domoRepoReleaseUrl }
     }
     dependencies {
         classpath 'com.domo.gradle:gradle-connector-plugin:0.1-SNAPSHOT'
     }
 }
 
+repositories {
+    maven {
+        url domoRepoReleaseUrl
+    }
+}
+
+configurations {
+    providedCompile
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.providedCompile
+    }
+}
+
+dependencies {
+    dependencies {
+        compile 'com.domo.connector:connector-general:+'
+        compile 'com.newrelic.agent.java:newrelic-api:3.5.1'
+
+        providedCompile 'org.slf4j:slf4j-api:1.7.7'
+
+        testCompile 'com.domo.dap:connector-api:+'
+        testCompile 'com.domo.dap:connector-util:0.9.13'
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.slf4j:slf4j-log4j12:1.7.7'
+    }
+}
