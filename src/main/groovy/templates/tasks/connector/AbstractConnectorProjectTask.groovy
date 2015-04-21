@@ -109,4 +109,21 @@ abstract class AbstractConnectorProjectTask extends AbstractProjectTask {
     protected String testResourcesPath(String projectPath) {
         return testPath(projectPath) + '/resources'
     }
+
+    protected String packagePath(String projectPath, String packagePath, String... paths) {
+        return mainPath(projectPath) + '/java' + packageToPath("${mainPath(projectPath)}/java", packagePath, paths)
+    }
+
+    protected String packageToPath(String parent, String packageName, String... paths) {
+        String[] dirs = packageName.split('\\.')
+        dirs += paths
+        return createDirs(parent, dirs)
+    }
+
+    protected String createDirs(String parent, String... paths) {
+        String path = paths.join('/')
+        File file = new File(parent, path)
+        file.mkdirs()
+        return "/" + path;
+    }
 }

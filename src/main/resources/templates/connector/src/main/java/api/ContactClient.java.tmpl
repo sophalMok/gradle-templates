@@ -1,0 +1,16 @@
+package ${packageName}.api;
+
+public class ContactClient extends Client {
+
+	protected static final String BASE_URI = "/contact/data";
+	
+	public ContactClient(String username, String password) {
+		super(username, password);
+	}
+	
+	public String getFirstPage(String contactId) throws Exception {
+		uriBuilder.buildUri(BASE_URI, contactId);
+		return super.get();
+	}
+
+}

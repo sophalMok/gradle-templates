@@ -18,6 +18,8 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         def projectGroup = 'com.domo.connector'
         def projectVersion = '0.0'
 
+        def connectorId = "${projectGroup}.${sanitizedProjectName.toLowerCase()}"
+
         project.ext[CreateConnectorProjectTask.PROJECT_PARENT_DIR] = folder.getRoot() as String
         project.ext[CreateConnectorProjectTask.NEW_PROJECT_NAME] = projectName
         project.ext[CreateConnectorProjectTask.PROJECT_GROUP] = projectGroup
@@ -34,6 +36,14 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources"
         assertFileExists folder.root, "${dataWriterProjectName}/LICENSE.txt"
         assertFileExists folder.root, "${dataWriterProjectName}/.gitignore"
+
+        def packageName = connectorId.replaceAll('\\.', '/')
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/Constants.java"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/ProcessRecords.java"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/api/AccountClient.java"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/api/AuthenticateClient.java"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/api/Client.java"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/api/ContactClient.java"
 
         assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "group='${projectGroup}'"
 

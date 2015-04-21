@@ -1,0 +1,113 @@
+package ${packageName};
+
+import ${packageName}.Constants.Metadata;
+import ${packageName}.Constants.Report;
+import ${packageName}.api.AccountClient;
+import ${packageName}.api.AuthenticateClient;
+import ${packageName}.api.Client;
+import ${packageName}.api.ContactClient;
+import com.domo.connector.general.ConnectorContext;
+import com.domo.connector.http.HttpClientException;
+import com.domo.connector.util.DataCollector;
+import com.domo.connector.util.MagicException;
+import com.domo.connector.util.MagicException.Status;
+import com.domo.connector.util.RecordProcessor;
+import com.domo.connector.writer.RowWriter;
+
+import java.net.HttpURLConnection;
+
+public class ProcessRecords extends RecordProcessor {
+	
+	protected String username;
+	protected String password;
+	protected Report report;
+	
+	RowWriter writer;
+
+	public ProcessRecords(ConnectorContext connectorContext, DataCollector dataCollector) {
+		super(connectorContext, dataCollector);
+		setMetadata();
+	}
+
+	@Override
+	public boolean authenticate() {
+		try {
+			AuthenticateClient client = new AuthenticateClient(username, password);
+			client.authenticate();
+			logger.info("Authentication Success.");
+			return true;
+		}catch (MagicException e) {
+			throw e;
+		}catch (HttpClientException e) {
+			//A generic check to determine if credentials were invalid.  Ideally, your client would do the logic and throw AUTHENTICATION_FAILED if invalid credentials or another exception if something else bad happened.
+			if(e instanceof HttpClientException && HttpURLConnection.HTTP_UNAUTHORIZED == ((HttpClientException)e).getHttpResponseCode()) {
+				throw new MagicException(Status.AUTHENTICATION_FAILED, e);
+			}
+			throw getGenericException(e);
+		}catch (Exception e) {
+			throw getGenericException(e);
+		}
+	}
+
+	@Override
+	public boolean readData() {
+		try {
+			Client client = getClientWithFirstPageOfData();
+			getDataWriter();
+			writer.writeRows(client.getData());
+			if(!isPreviewMode()) {//only get first page if we're in preview mode
+				while(client.hasNext()) {
+					client.next();
+					writer.writeRows(client.getData());
+				}
+			}
+			//If you are using Column Aliasing, you MUST pass the column Aliases to the getExpectedSchema method in the RowWriter Constructor to avoid conflicting column names. 
+			writer.close();
+			logger.info("Complete!");
+			return true;
+		}catch (MagicException e) {
+			throw e;
+		}catch (Exception e) {
+			throw getGenericException(e);
+		}
+	}
+	
+	protected MagicException getGenericException(Exception e) throws MagicException {
+		return new MagicException(Status.INTERNAL_CONNECTOR_ERROR, e);
+	}
+	
+	protected RowWriter getDataWriter() {
+		if(this.writer == null) {
+			String filename = "Skeleton_" + report.toString();
+			logger.debug("Output file: " + filename);
+			this.writer = new RowWriter(dataCollector.getDataWriter(filename), getExpectedSchema());
+		}
+		return this.writer;
+	}
+
+	protected Client getClientWithFirstPageOfData() throws Exception {
+		Client client = null;
+		switch (report) {
+		case ACCOUNTS:
+			AccountClient dataClient = new AccountClient(username, password);
+			dataClient.getFirstPage();
+			client = dataClient;
+			break;
+		case CONTACTS:
+			ContactClient contactClient = new ContactClient(username, password);
+			contactClient.getFirstPage("1234");
+			client = contactClient;
+			break;
+		default:
+			throw new UnsupportedOperationException("Report not yet supported: " + report);
+		}
+		return client;
+	}
+
+	protected void setMetadata() {
+		this.username = getRequiredParameter(Metadata.USERNAME.getUiKey());
+		this.password = getRequiredParameter(Metadata.PASSWORD.getUiKey());
+		this.report = Report.get(getRequiredParameter(Metadata.REPORT.getUiKey()));
+	}
+
+}

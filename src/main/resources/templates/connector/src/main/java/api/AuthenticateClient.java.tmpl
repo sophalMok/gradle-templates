@@ -1,0 +1,19 @@
+package ${packageName}.api;
+
+
+public class AuthenticateClient extends Client {
+	
+	protected static final String BASE_URI = "/auth/call";
+	
+	public AuthenticateClient(String username, String password) {
+		super(username, password);
+	}
+
+	public void authenticate() throws Exception {
+		uriBuilder.buildUri(BASE_URI);
+		uriBuilder.withQueryParameters("user=" + username);
+		uriBuilder.withQueryParameters("pass=" + password);
+		super.get();
+	}
+
+}

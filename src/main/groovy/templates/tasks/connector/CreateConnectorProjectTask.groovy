@@ -64,5 +64,21 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
             'log4j.properties' template: '/templates/connector/log4j.properties.tmpl'
         }
 
+        ProjectTemplate.fromRoot(packagePath(projectPath, connectorId)) {
+            'Constants.java' template: '/templates/connector/src/main/java/Constants.java.tmpl', packageName: connectorId
+            'ProcessRecords.java' template: '/templates/connector/src/main/java/ProcessRecords.java.tmpl', packageName: connectorId
+            'AccountClient.java' template: '/templates/connector/src/main/java/api/AccountClient.java.tmpl', packageName: connectorId
+            'AccountClient.java' template: '/templates/connector/src/main/java/api/AuthenticateClient.java.tmpl', packageName: connectorId
+            'AccountClient.java' template: '/templates/connector/src/main/java/api/Client.java.tmpl', packageName: connectorId
+            'AccountClient.java' template: '/templates/connector/src/main/java/api/ContactClient.java.tmpl', packageName: connectorId
+        }
+
+        ProjectTemplate.fromRoot(packagePath(projectPath, connectorId, "api")) {
+            'AccountClient.java' template: '/templates/connector/src/main/java/api/AccountClient.java.tmpl', packageName: connectorId
+            'AuthenticateClient.java' template: '/templates/connector/src/main/java/api/AuthenticateClient.java.tmpl', packageName: connectorId
+            'Client.java' template: '/templates/connector/src/main/java/api/Client.java.tmpl', packageName: connectorId
+            'ContactClient.java' template: '/templates/connector/src/main/java/api/ContactClient.java.tmpl', packageName: connectorId
+        }
+
     }
 }

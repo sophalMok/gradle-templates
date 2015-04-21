@@ -1,0 +1,62 @@
+package ${packageName};
+
+
+public class Constants {
+	
+	//possible UI metadata
+	public enum Metadata {
+		USERNAME("account.username"),
+		PASSWORD("account.password"),
+		REPORT("report");
+		
+		private String uiKey;
+		
+		private Metadata(String uiKey) {
+			this.uiKey = uiKey;
+		}
+		
+		public String getUiKey() {
+			return uiKey;
+		}
+		
+		public static Metadata get(String uiKey) {
+			for(Metadata e : values()) {
+				if(e.uiKey.equals(uiKey)) {
+					return e;
+				}
+			}
+			return null;
+		}
+		
+	}
+	
+	//possible reports
+	public enum Report {
+		ACCOUNTS("accounts"),
+		DEALS("deals"),
+		CONTACTS("contacts"),
+		SOURCES("sources"),
+		LEADS("leads");
+		
+		private String uiKey;
+		
+		private Report(String uiKey) {
+			this.uiKey = uiKey;
+		}
+
+		public String getUiKey() {
+			return uiKey;
+		}
+		
+		public static Report get(String uiKey) {
+			for(Report e : values()) {
+				if(e.uiKey.equals(uiKey)) {
+					return e;
+				}
+			}
+			return null;
+		}
+		
+	}
+	
+}

@@ -1,0 +1,15 @@
+package ${packageName}.api;
+
+public class AccountClient extends Client {
+	
+	protected static final String BASE_URI = "/account/data";
+
+	public AccountClient(String username, String password) {
+		super(username, password);
+	}
+
+	public String getFirstPage() throws Exception {
+		uriBuilder.buildUri(BASE_URI);
+		return super.get();
+	}
+}

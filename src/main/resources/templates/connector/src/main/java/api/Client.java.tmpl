@@ -1,0 +1,104 @@
+package ${packageName}.api;
+
+import com.domo.connector.http.HttpClient;
+import com.domo.connector.http.UriBuilder;
+import com.domo.connector.model.Model;
+import com.domo.connector.parser.XmlParser;
+import com.domo.connector.util.MagicException;
+import com.domo.connector.util.MagicException.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+
+public class Client {
+	
+	protected static final String API_URL = "https://somewhere.com/api/v1";
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass()); //use "this" so subclasses can use the same logger with their class name printed in logs
+	
+	protected String username;
+	protected String password;
+	
+	protected UriBuilder uriBuilder;//an object that subclasses can use to build their url
+	protected HttpClient httpClient;
+	protected Model data;
+	protected XmlParser parser;
+	
+	int pageNumber = 0;
+	
+	//constructor
+	public Client (String username, String password) {
+		this.username = username;
+		this.password = password;
+		this.httpClient = new HttpClient();
+		this.uriBuilder = new UriBuilder(API_URL);
+		this.parser = new XmlParser();
+	}
+	
+	//data related getters
+	public List<Map<String, Object>> getData() {
+		return data == null ? null : data.getDataList();
+	}
+	
+	public List<String> getColumnNames() {
+		return data == null ? null : data.getColumnNamesAsList();
+	}
+	
+	//paging
+	public boolean hasNext() {
+		return data != null && data.getNextUrl() != null && !data.getNextUrl().isEmpty();
+	}
+	
+	public String next() throws Exception {
+		if(hasNext()) {
+			return get(data.getNextUrl());
+		}else {
+			throw new UnsupportedOperationException("No more pages to get.");
+		}
+	}
+
+	//getting data
+	protected String get() throws Exception {
+		String url = uriBuilder.build();
+		return get(url);
+	}
+	
+	protected String get(String url) throws Exception {
+		try {
+			logger.debug("Getting page {}", pageNumber + 1);
+			data = null; //release memory for the previous page of data stored
+			//TODO: do your API call logic here
+//			KeyValuePair basicAuthHeader = HttpUtil.getBasicAuthHeader("user", "pass");
+//			KeyValuePair oAuthHeader = HttpUtil.getOauthHeader(oauthModel.getAccessToken());
+//			KeyValuePair bearerAuthHeader = HttpUtil.getBearerAuthHeader(oauthModel.getAccessToken());
+//			KeyValuePair neededHeader = new KeyValuePair("need_this", "tractor");
+//			String rawResponse = httpClient.get(url, basicAuthHeader, neededHeader);
+			String rawResponse = "<results><result><name>John Deere</name><description>Nothing Runs Like a Deere!</description></result><result><name>Case</name><description>For Those Who Demand More</description></result></results>";			
+			validateResponse(rawResponse);
+			parser.addListIndicatorTagName("results");
+			data = parser.parse(rawResponse);
+			adjustPagingVariables();
+			return rawResponse;
+//		}catch (HttpClientException e) {
+//			throw new MagicException(Status.INTERNAL_CONNECTOR_ERROR.getCode(), e.getMessage(), e);
+		}catch (Exception e) {
+			boolean canDetermineAUserActionableError = false; //if you can send a pretty and useful error message to the end user, do it here.
+			if(canDetermineAUserActionableError) {
+				String message = "The pretty message that I can derive from the error.";
+				throw new MagicException(Status.INTERNAL_CONNECTOR_ERROR.getCode(), message, e);
+			}
+			throw e;
+		}
+	}
+	
+	protected void adjustPagingVariables() {
+		pageNumber++;
+	}
+	
+	protected void validateResponse(String rawResponse) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
