@@ -29,7 +29,7 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources"
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/conf"
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/resources"
-        assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/log4j.properties"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources/log4j.properties"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/java"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources"
         assertFileExists folder.root, "${dataWriterProjectName}/LICENSE.txt"
@@ -39,10 +39,8 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
 
         assertFileContains folder.root, "${dataWriterProjectName}/settings.gradle", "rootProject.name='${dataWriterProjectName}'"
 
-        assertFileContains folder.root, "${dataWriterProjectName}/domo-connector.properties", 'factory=com.domo.connector.general.GeneralDataStreamFactory'
-        assertFileContains folder.root, "${dataWriterProjectName}/domo-connector.properties", 'recordprocessor=com.domo.connector.skeleton.ProcessRecords'
-        assertFileContains folder.root, "${dataWriterProjectName}/domo-connector.properties", 'validator=@validator@'
-        assertFileContains folder.root, "${dataWriterProjectName}/domo-connector.properties", 'validatorJar=@validatorJar@'
+        assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", 'factory=com.domo.connector.general.GeneralDataStreamFactory'
+        assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", 'recordprocessor=com.domo.connector.skeleton.ProcessRecords'
 
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"id\": \"${projectGroup}.${sanitizedProjectName.toLowerCase()}\""
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"major\": ${projectVersion.split("\\.")[0]}"

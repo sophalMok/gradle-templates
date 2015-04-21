@@ -49,7 +49,6 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
         ProjectTemplate.fromRoot(projectPath) {
             'build.gradle' template: '/templates/connector/build.gradle.tmpl', group: projectGroup
             'settings.gradle' template: '/templates/connector/settings.gradle.tmpl', projectName: dataWriterProjectName
-            'domo-connector.properties' template: '/templates/connector/domo-connector.properties.tmpl', dataStreamFactory: 'com.domo.connector.general.GeneralDataStreamFactory', recordProcessor: 'com.domo.connector.skeleton.ProcessRecords', validator: '@validator@', validatorJar: '@validatorJar@'
             '.gitignore' template: '/templates/connector/.gitignore.tmpl'
         }
 
@@ -57,11 +56,11 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
             'connector.json' template: '/templates/connector/connector.json.tmpl', id: connectorId, major: connectorMajor, minor: connectorMinor, label: connectorLabel, description: connectorDescription
         }
 
-        ProjectTemplate.fromRoot(gradlePath(projectPath)) {
-            'version.gradle' template: '/templates/connector/version.gradle.tmpl'
+        ProjectTemplate.fromRoot(resourcesPath(projectPath)) {
+            'domo-connector.properties' template: '/templates/connector/domo-connector.properties.tmpl', dataStreamFactory: 'com.domo.connector.general.GeneralDataStreamFactory', recordProcessor: 'com.domo.connector.skeleton.ProcessRecords'
         }
 
-        ProjectTemplate.fromRoot(resourcesPath(projectPath)) {
+        ProjectTemplate.fromRoot(testResourcesPath(projectPath)) {
             'log4j.properties' template: '/templates/connector/log4j.properties.tmpl'
         }
 
