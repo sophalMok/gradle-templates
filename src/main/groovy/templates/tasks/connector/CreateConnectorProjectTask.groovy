@@ -67,10 +67,6 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
         ProjectTemplate.fromRoot(packagePath(projectPath, connectorId)) {
             'Constants.java' template: '/templates/connector/src/main/java/Constants.java.tmpl', packageName: connectorId
             'ProcessRecords.java' template: '/templates/connector/src/main/java/ProcessRecords.java.tmpl', packageName: connectorId
-            'AccountClient.java' template: '/templates/connector/src/main/java/api/AccountClient.java.tmpl', packageName: connectorId
-            'AccountClient.java' template: '/templates/connector/src/main/java/api/AuthenticateClient.java.tmpl', packageName: connectorId
-            'AccountClient.java' template: '/templates/connector/src/main/java/api/Client.java.tmpl', packageName: connectorId
-            'AccountClient.java' template: '/templates/connector/src/main/java/api/ContactClient.java.tmpl', packageName: connectorId
         }
 
         ProjectTemplate.fromRoot(packagePath(projectPath, connectorId, "api")) {
