@@ -44,7 +44,7 @@ allprojects {
     apply plugin: templates.TemplatesPlugin
 }
 ```
-Step 3. Verify installation by running the `gradle tasks --refresh-dependencies` command and ensuring "*DomoConnector" tasks are present.
+Step 3. Verify installation by running the `gradle tasks` command and ensuring "*DomoConnector" tasks are present.
 ```shell
 gradle tasks
 ```
@@ -57,7 +57,7 @@ Run the `gradle tasks` command to see a list of available Domo Connector tasks p
 
 Step 1. Create the Domo Connector project. Follow prompts.
 ```shell
-gradle createDomoConnector --refresh-dependencies
+gradle createDomoConnector
 ```
 Step 2. Create the gradle wrapper, for the project.
 ```shell
