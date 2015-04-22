@@ -18,7 +18,7 @@ class ConnectorTemplatesPlugin implements Plugin<Project> {
 
 	void apply(Project project) {
 		project.task CREATE_CONNECTOR_TASK_NAME, type:CreateConnectorProjectTask
-        project.task CONVERT_CONNECTOR_TASK_NAME, type:ConvertConnectorProjectTask
+//        project.task CONVERT_CONNECTOR_TASK_NAME, type:ConvertConnectorProjectTask
 	}
 
 }

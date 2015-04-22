@@ -47,7 +47,7 @@ gradle tasks
 
 ## Usage
 
-Run the `gradle tasks` command to see a list of "create", "convert", and "promote" tasks provided by the default plugin templates.
+Run the `gradle tasks` command to see a list of available Domo Connector tasks provided by the default plugin templates.
 
 ### Create a Domo Connector
 
@@ -65,7 +65,7 @@ Step 3. Add the project to github.
 First, using a browser:  
 ```shell
 Login to https://git.empdev.domo.com/Connectors.  
-Add a new repository named: DataWriter\<project_name\>  
+Add a new repository named: DataWriter<project_name>  
 ```
 Then, from the command line:  
 ```shell
