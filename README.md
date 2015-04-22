@@ -18,6 +18,9 @@ and add the entry into your webapp's web.xml file.
 
 ## Installation
 
+### Prerequisites
+Install the latest version of gradle. Installation instructions and documentation for gradle can be found at http://gradle.org/. As of this writing, it was version 2.3.
+
 The recommended way to install this plugin, is to use a gradle init script. To install, follow these steps:
 
 Step 1. Create the gradle init script.
