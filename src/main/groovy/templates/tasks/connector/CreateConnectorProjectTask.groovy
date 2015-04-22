@@ -76,5 +76,10 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
             'ContactClient.java' template: '/templates/connector/src/main/java/api/ContactClient.java.tmpl', packageName: connectorId
         }
 
+        ProjectTemplate.fromRoot(iconsPath(projectPath)) {
+            'large.png' content: '/templates/connector/icons/large.png'
+            'small.png' content: '/templates/connector/icons/small.png'
+            'wide-large.png' content: '/templates/connector/icons/wide-large.png'
+        }
     }
 }

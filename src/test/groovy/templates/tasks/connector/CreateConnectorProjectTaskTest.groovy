@@ -29,8 +29,13 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
 
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/java"
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties"
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/conf"
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/resources"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/icons"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/icons/large.png"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/icons/small.png"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/main/resources/icons/wide-large.png"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources/log4j.properties"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/java"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources"
