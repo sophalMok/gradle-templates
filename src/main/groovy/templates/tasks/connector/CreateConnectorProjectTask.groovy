@@ -60,6 +60,11 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
             'domo-connector.properties' template: '/templates/connector/domo-connector.properties.tmpl', dataStreamFactory: 'com.domo.connector.general.GeneralDataStreamFactory', recordProcessor: 'com.domo.connector.skeleton.ProcessRecords'
         }
 
+        ProjectTemplate.fromRoot(resourcesBundlesPath(projectPath)) {
+            'UiBundle.properties' template: '/templates/connector/resources/UiBundle.properties.tmpl'
+            'UiBundle_sw.properties' template: '/templates/connector/resources/UiBundle_sw.properties.tmpl'
+        }
+
         ProjectTemplate.fromRoot(testResourcesPath(projectPath)) {
             'log4j.properties' template: '/templates/connector/log4j.properties.tmpl'
         }
