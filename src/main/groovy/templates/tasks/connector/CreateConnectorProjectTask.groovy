@@ -86,5 +86,9 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
             'small.png' content: '/templates/connector/icons/small.png'
             'wide-large.png' content: '/templates/connector/icons/wide-large.png'
         }
+
+        ProjectTemplate.fromRoot(integrationTestResourcesPath(projectPath)) {
+            'integrationTest.properties' template: '/templates/connector/src/integrationTest/resources/integrationTest.properties.tmpl', connectorName: sanitizedProjectName.toLowerCase()
+        }
     }
 }

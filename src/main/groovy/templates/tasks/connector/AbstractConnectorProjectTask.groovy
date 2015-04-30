@@ -57,6 +57,10 @@ abstract class AbstractConnectorProjectTask extends AbstractProjectTask {
                     'java' {}
                     'resources' {}
                 }
+                'integrationTest' {
+                    'java' {}
+                    'resources' {}
+                }
             }
             'LICENSE.txt' '// Your License Goes here'
         }
@@ -100,6 +104,18 @@ abstract class AbstractConnectorProjectTask extends AbstractProjectTask {
 
     protected String testPath(String projectPath) {
         return srcPath(projectPath) + '/test'
+    }
+
+    protected String integrationTestPath(String projectPath) {
+        return srcPath(projectPath) + '/integrationTest'
+    }
+
+    protected String integrationTestResourcesPath(String projectPath) {
+        return integrationTestPath(projectPath) + '/resources'
+    }
+
+    protected String integrationTestSrcPath(String projectPath) {
+        return integrationTestPath(projectPath) + '/src'
     }
 
     protected String testJavaPath(String projectPath) {
