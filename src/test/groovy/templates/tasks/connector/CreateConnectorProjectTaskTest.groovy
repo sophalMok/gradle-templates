@@ -60,7 +60,7 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileContains folder.root, "${dataWriterProjectName}/settings.gradle", "//rootProject.name='${dataWriterProjectName}'"
 
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", 'factory=com.domo.connector.general.GeneralDataStreamFactory'
-        assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", 'recordprocessor=com.domo.connector.skeleton.ProcessRecords'
+        assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", "recordprocessor=${connectorId}.ProcessRecords"
 
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"id\": \"${projectGroup}.${sanitizedProjectName.toLowerCase()}\""
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"major\": ${projectVersion.split("\\.")[0]}"
