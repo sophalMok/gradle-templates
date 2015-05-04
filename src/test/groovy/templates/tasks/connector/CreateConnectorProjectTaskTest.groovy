@@ -45,6 +45,7 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileExists folder.root, "${dataWriterProjectName}/src/integrationTest/resources"
         assertFileExists folder.root, "${dataWriterProjectName}/LICENSE.txt"
         assertFileExists folder.root, "${dataWriterProjectName}/.gitignore"
+        assertFileExists folder.root, "${dataWriterProjectName}/gradle.properties"
 
         def packageName = connectorId.replaceAll('\\.', '/')
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/Constants.java"
@@ -58,6 +59,10 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "group = '${projectGroup}'"
 
         assertFileContains folder.root, "${dataWriterProjectName}/settings.gradle", "//rootProject.name='${dataWriterProjectName}'"
+
+        assertFileContains folder.root, "${dataWriterProjectName}/gradle.properties", "nexusPublicUrl=http\\://svn.domo.com\\:8081/nexus/content/groups/public/"
+        assertFileContains folder.root, "${dataWriterProjectName}/gradle.properties", "nexusSnapshotUrl=http\\://svn.domo.com\\:8081/nexus/content/repositories/snapshots/"
+        assertFileContains folder.root, "${dataWriterProjectName}/gradle.properties", "nexusReleaseUrl=http\\://svn.domo.com\\:8081/nexus/content/repositories/releases/"
 
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", 'factory=com.domo.connector.general.GeneralDataStreamFactory'
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/domo-connector.properties", "recordprocessor=${connectorId}.ProcessRecords"
