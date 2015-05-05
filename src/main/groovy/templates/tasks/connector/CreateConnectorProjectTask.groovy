@@ -47,7 +47,7 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
         createBase projectPath
 
         ProjectTemplate.fromRoot(projectPath) {
-            'build.gradle' template: '/templates/connector/build.gradle.tmpl', group: projectGroup, archivesBaseName: dataWriterProjectName
+            'build.gradle' template: '/templates/connector/build.gradle.tmpl', group: projectGroup, archivesBaseName: sanitizedProjectName.toLowerCase()
             'settings.gradle' template: '/templates/connector/settings.gradle.tmpl', projectName: dataWriterProjectName
             '.gitignore' template: '/templates/connector/.gitignore.tmpl'
             'gradle.properties' template: '/templates/connector/gradle.properties.tmpl'

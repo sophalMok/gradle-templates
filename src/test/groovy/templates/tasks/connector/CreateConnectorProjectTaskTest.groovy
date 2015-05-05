@@ -55,8 +55,8 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/api/Client.java"
         assertFileExists folder.root, "${dataWriterProjectName}/src/main/java/${packageName}/api/ContactClient.java"
 
-        assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "archivesBaseName = '${dataWriterProjectName}'"
-        assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "group = '${projectGroup}'"
+        assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "archivesBaseName = 'urbanairship'"
+        assertFileContains folder.root, "${dataWriterProjectName}/build.gradle", "group = 'com.domo.connector'"
 
         assertFileContains folder.root, "${dataWriterProjectName}/settings.gradle", "//rootProject.name='${dataWriterProjectName}'"
 
