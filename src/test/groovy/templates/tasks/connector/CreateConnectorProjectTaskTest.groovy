@@ -41,8 +41,8 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources/log4j.properties"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/java"
         assertFileExists folder.root, "${dataWriterProjectName}/src/test/resources"
-        assertFileExists folder.root, "${dataWriterProjectName}/src/integrationTest/java"
-        assertFileExists folder.root, "${dataWriterProjectName}/src/integrationTest/resources"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/integTest/java"
+        assertFileExists folder.root, "${dataWriterProjectName}/src/integTest/resources"
         assertFileExists folder.root, "${dataWriterProjectName}/LICENSE.txt"
         assertFileExists folder.root, "${dataWriterProjectName}/.gitignore"
         assertFileExists folder.root, "${dataWriterProjectName}/gradle.properties"
@@ -73,8 +73,8 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"label\": \"${projectName}\""
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"description\": \"${projectName} Domo Connector\""
 
-        assertFileContains folder.root, "${dataWriterProjectName}/src/integrationTest/resources/integrationTest.properties", "credentials.file=\${user.home}/credentials.properties"
-        assertFileContains folder.root, "${dataWriterProjectName}/src/integrationTest/resources/integrationTest.properties", "connector.name=${sanitizedProjectName.toLowerCase()}"
+        assertFileContains folder.root, "${dataWriterProjectName}/src/integTest/resources/integrationTest.properties", "credentials.file=\${user.home}/credentials.properties"
+        assertFileContains folder.root, "${dataWriterProjectName}/src/integTest/resources/integrationTest.properties", "connector.name=${sanitizedProjectName.toLowerCase()}"
 
     }
 }

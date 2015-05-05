@@ -57,7 +57,7 @@ abstract class AbstractConnectorProjectTask extends AbstractProjectTask {
                     'java' {}
                     'resources' {}
                 }
-                'integrationTest' {
+                'integTest' {
                     'java' {}
                     'resources' {}
                 }
@@ -107,7 +107,7 @@ abstract class AbstractConnectorProjectTask extends AbstractProjectTask {
     }
 
     protected String integrationTestPath(String projectPath) {
-        return srcPath(projectPath) + '/integrationTest'
+        return srcPath(projectPath) + '/integTest'
     }
 
     protected String integrationTestResourcesPath(String projectPath) {
