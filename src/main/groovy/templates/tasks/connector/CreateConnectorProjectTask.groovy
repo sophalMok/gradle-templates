@@ -89,7 +89,7 @@ class CreateConnectorProjectTask extends AbstractConnectorProjectTask {
         }
 
         ProjectTemplate.fromRoot(integrationTestResourcesPath(projectPath)) {
-            'integrationTest.properties' template: '/templates/connector/src/integrationTest/resources/integrationTest.properties.tmpl', connectorName: sanitizedProjectName.toLowerCase()
+            'integTest.properties' template: '/templates/connector/src/integrationTest/resources/integTest.properties.tmpl', connectorName: sanitizedProjectName.toLowerCase()
         }
     }
 }

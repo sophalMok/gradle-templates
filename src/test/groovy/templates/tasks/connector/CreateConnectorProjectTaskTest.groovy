@@ -73,8 +73,8 @@ class CreateConnectorProjectTaskTest extends AbstractTaskTester {
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"label\": \"${projectName}\""
         assertFileContains folder.root, "${dataWriterProjectName}/src/main/resources/conf/connector.json", "\"description\": \"${projectName} Domo Connector\""
 
-        assertFileContains folder.root, "${dataWriterProjectName}/src/integTest/resources/integrationTest.properties", "credentials.file=\${user.home}/credentials.properties"
-        assertFileContains folder.root, "${dataWriterProjectName}/src/integTest/resources/integrationTest.properties", "connector.name=${sanitizedProjectName.toLowerCase()}"
+        assertFileContains folder.root, "${dataWriterProjectName}/src/integTest/resources/integTest.properties", "credentials.file=\${user.home}/credentials.properties"
+        assertFileContains folder.root, "${dataWriterProjectName}/src/integTest/resources/integTest.properties", "connector.name=${sanitizedProjectName.toLowerCase()}"
 
     }
 }
