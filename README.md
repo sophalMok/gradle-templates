@@ -6,7 +6,7 @@ The Domo Connector plugin helps you get started using Gradle by providing conven
 Eg. To create a new Domo Connector project you can run:
 
 ```shell
-gradle createDomoConnector
+gradle createDomoConnector --refresh-dependencies
 ```
 
 Which will prompt you for the name of your new project and then create a new directory with it. It will also create a standard directory structure in your
